@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <!-- MindFlip brand colours -->
+    <color name="mindflip_background">#FFFAFC</color>
+    <color name="mindflip_primary">#6398E8</color>
+    <color name="mindflip_primary_dark">#4F82D5</color>
+
+    <color name="mindflip_text_primary">#17173F</color>
+    <color name="mindflip_text_secondary">#8F96A8</color>
+    <color name="mindflip_border">#E5E9F2</color>
+    <color name="mindflip_white">#FFFFFF</color>
+
+    <!-- Status colours -->
+    <color name="mindflip_green">#24C992</color>
+    <color name="mindflip_red">#FF646E</color>
+    <color name="mindflip_yellow">#FFBF3F</color>
+    <color name="mindflip_pink">#F7529A</color>
+
+    <!-- Light card backgrounds -->
+    <color name="mindflip_blue_light">#EDF3FF</color>
+    <color name="mindflip_green_light">#EBFAF5</color>
+    <color name="mindflip_yellow_light">#FFF7DC</color>
+    <color name="mindflip_pink_light">#FFF0F7</color>
+</resources>
