@@ -42,7 +42,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Welcome to MindFlip"
+                        android:text="@string/welcome_mindflip"
                         android:textColor="@color/mindflip_text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -51,7 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="• Study is the key to Success 🔥"
+                        android:text="@string/study_key"
                         android:textColor="@color/mindflip_text_primary"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -62,7 +62,7 @@
                     android:id="@+id/imgHomeLogo"
                     android:layout_width="54dp"
                     android:layout_height="54dp"
-                    android:contentDescription="MindFlip logo"
+                    android:contentDescription="@string/mindflip_logo"
                     android:src="@mipmap/ic_launcher" />
 
             </LinearLayout>
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="38dp"
-                android:text="Quick Actions"
+                android:text="@string/quick_actions"
                 android:textColor="@color/mindflip_text_primary"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -103,16 +103,16 @@
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:contentDescription="New card"
+                            android:contentDescription="@string/new_card"
                             android:src="@android:drawable/ic_input_add"
-                            android:tint="@color/mindflip_primary" />
+                            app:tint="@color/mindflip_primary" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:text="New Card"
+                            android:text="@string/new_card"
                             android:textColor="@color/mindflip_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -141,16 +141,16 @@
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:contentDescription="Practice quiz"
+                            android:contentDescription="@string/practice_quiz"
                             android:src="@android:drawable/ic_media_play"
-                            android:tint="@color/mindflip_red" />
+                            app:tint="@color/mindflip_red" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:text="Practice Quiz"
+                            android:text="@string/practice_quiz"
                             android:textColor="@color/mindflip_red"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -178,16 +178,16 @@
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:contentDescription="My progress"
+                            android:contentDescription="@string/my_progress"
                             android:src="@android:drawable/ic_menu_sort_by_size"
-                            android:tint="@color/mindflip_yellow" />
+                            app:tint="@color/mindflip_yellow" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:text="My Progress"
+                            android:text="@string/my_progress"
                             android:textColor="#D99500"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -203,7 +203,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="Your Subjects"
+                android:text="@string/your_subjects"
                 android:textColor="@color/mindflip_text_primary"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -237,7 +237,7 @@
                             android:layout_height="38dp"
                             android:background="@color/mindflip_blue_light"
                             android:gravity="center"
-                            android:text="✣"
+                            android:text="@string/icon_star"
                             android:textColor="@color/mindflip_primary"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -246,7 +246,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="32 cards"
+                            android:text="@string/cards_32"
                             android:textAlignment="textEnd"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
@@ -254,7 +254,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="CTE308"
+                            android:text="@string/cte308"
                             android:textColor="@color/mindflip_text_primary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -273,7 +273,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="80% Mastered"
+                            android:text="@string/mastered_80"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
 
@@ -303,7 +303,7 @@
                             android:layout_height="38dp"
                             android:background="@color/mindflip_green_light"
                             android:gravity="center"
-                            android:text="▯"
+                            android:text="@string/icon_rect"
                             android:textColor="@color/mindflip_green"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -312,7 +312,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="48 cards"
+                            android:text="@string/cards_48"
                             android:textAlignment="textEnd"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
@@ -320,7 +320,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="EDP101"
+                            android:text="@string/edp101"
                             android:textColor="@color/mindflip_text_primary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -339,7 +339,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="60% Mastered"
+                            android:text="@string/mastered_60"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
 
@@ -378,7 +378,7 @@
                             android:layout_height="38dp"
                             android:background="@color/mindflip_yellow_light"
                             android:gravity="center"
-                            android:text="⌂"
+                            android:text="@string/icon_home"
                             android:textColor="@color/mindflip_yellow"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -387,7 +387,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="24 cards"
+                            android:text="@string/cards_24"
                             android:textAlignment="textEnd"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
@@ -395,7 +395,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="ITM301"
+                            android:text="@string/itm301"
                             android:textColor="@color/mindflip_text_primary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -414,7 +414,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="40% Mastered"
+                            android:text="@string/mastered_40"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
 
@@ -444,7 +444,7 @@
                             android:layout_height="38dp"
                             android:background="@color/mindflip_pink_light"
                             android:gravity="center"
-                            android:text="▤"
+                            android:text="@string/icon_list"
                             android:textColor="@color/mindflip_pink"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -453,7 +453,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="40 cards"
+                            android:text="@string/cards_40"
                             android:textAlignment="textEnd"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
@@ -461,7 +461,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="ITM302"
+                            android:text="@string/itm302"
                             android:textColor="@color/mindflip_text_primary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -480,7 +480,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="95% Mastered"
+                            android:text="@string/mastered_95"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
 

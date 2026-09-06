@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mindflip_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="22dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Go back"
+                android:padding="12dp"
+                android:src="@android:drawable/ic_media_previous"
+                app:tint="@color/mindflip_text_primary" />
+
+            <TextView
+                android:id="@+id/textQuizSubject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="EDP101 Quiz"
+                android:textColor="@color/mindflip_text_primary"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textQuestionNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Question 1 of 10"
+            android:textColor="@color/mindflip_text_secondary"
+            android:textSize="14sp" />
+
+        <ProgressBar
+            android:id="@+id/progressQuiz"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="12dp"
+            android:max="10"
+            android:progress="1"
+            android:progressBackgroundTint="@color/mindflip_border"
+            android:progressTint="@color/mindflip_primary" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:cardBackgroundColor="@color/mindflip_white"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="3dp">
+
+            <TextView
+                android:id="@+id/textQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="140dp"
+                android:gravity="center_vertical"
+                android:padding="24dp"
+                android:text="Which statement best describes entrepreneurship?"
+                android:textColor="@color/mindflip_text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Select one answer"
+            android:textColor="@color/mindflip_text_secondary"
+            android:textSize="14sp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupAnswers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/optionA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="64dp"
+                android:background="@color/mindflip_white"
+                android:buttonTint="@color/mindflip_primary"
+                android:padding="12dp"
+                android:text="A. Creating and managing a venture to pursue an opportunity"
+                android:textColor="@color/mindflip_text_primary"
+                android:textSize="15sp" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/optionB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:minHeight="64dp"
+                android:background="@color/mindflip_white"
+                android:buttonTint="@color/mindflip_primary"
+                android:padding="12dp"
+                android:text="B. Avoiding all business risks"
+                android:textColor="@color/mindflip_text_primary"
+                android:textSize="15sp" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/optionC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:minHeight="64dp"
+                android:background="@color/mindflip_white"
+                android:buttonTint="@color/mindflip_primary"
+                android:padding="12dp"
+                android:text="C. Working only for an established company"
+                android:textColor="@color/mindflip_text_primary"
+                android:textSize="15sp" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/optionD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:minHeight="64dp"
+                android:background="@color/mindflip_white"
+                android:buttonTint="@color/mindflip_primary"
+                android:padding="12dp"
+                android:text="D. Copying products without considering customer needs"
+                android:textColor="@color/mindflip_text_primary"
+                android:textSize="15sp" />
+
+        </RadioGroup>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAnswerFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/mindflip_green_light"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:id="@+id/textAnswerFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Correct!"
+                    android:textColor="@color/mindflip_text_primary"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textAnswerExplanation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Entrepreneurship involves pursuing opportunities, creating value, and managing the risks of a venture."
+                    android:textColor="@color/mindflip_text_primary"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCheckAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:minHeight="56dp"
+            android:text="Check Answer"
+            android:textAllCaps="false"
+            android:textColor="@color/mindflip_white"
+            android:textSize="16sp"
+            app:backgroundTint="@color/mindflip_primary"
+            app:cornerRadius="26dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNextQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:minHeight="56dp"
+            android:text="Next Question"
+            android:textAllCaps="false"
+            android:textColor="@color/mindflip_white"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:backgroundTint="@color/mindflip_primary"
+            app:cornerRadius="26dp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

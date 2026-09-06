@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mindflip_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="22dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Go back"
+                android:padding="12dp"
+                android:src="@android:drawable/ic_media_previous"
+                app:tint="@color/mindflip_text_primary" />
+
+            <TextView
+                android:id="@+id/textStudySubject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="EDP101"
+                android:textColor="@color/mindflip_text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textCardCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 / 10"
+                android:textColor="@color/mindflip_text_secondary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressStudy"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="24dp"
+            android:max="10"
+            android:progress="1"
+            android:progressBackgroundTint="@color/mindflip_border"
+            android:progressTint="@color/mindflip_primary" />
+
+        <TextView
+            android:id="@+id/textStudyTopic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
+            android:text="Entrepreneurship"
+            android:textColor="@color/mindflip_text_secondary"
+            android:textSize="16sp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardFlashcard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/mindflip_white"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="300dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="28dp">
+
+                <TextView
+                    android:id="@+id/textCardSide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="QUESTION"
+                    android:textColor="@color/mindflip_primary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textFlashcardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:gravity="center"
+                    android:text="What is entrepreneurship?"
+                    android:textColor="@color/mindflip_text_primary"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textFlipHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="Tap the card to reveal the answer"
+                    android:textAlignment="center"
+                    android:textColor="@color/mindflip_text_secondary"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFlipCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="56dp"
+            android:layout_marginTop="28dp"
+            android:text="Show Answer"
+            android:textAllCaps="false"
+            android:textColor="@color/mindflip_white"
+            android:textSize="16sp"
+            app:backgroundTint="@color/mindflip_primary"
+            app:cornerRadius="26dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="After revealing the answer, rate your recall."
+            android:textColor="@color/mindflip_text_secondary"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnStudyAgain"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:minHeight="52dp"
+                android:enabled="false"
+                android:text="Study Again"
+                android:textAllCaps="false"
+                android:textColor="@color/mindflip_text_primary"
+                app:cornerRadius="12dp"
+                app:strokeColor="@color/mindflip_border" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGotIt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:minHeight="52dp"
+                android:enabled="false"
+                android:text="Got It"
+                android:textAllCaps="false"
+                android:textColor="@color/mindflip_white"
+                app:backgroundTint="@color/mindflip_primary"
+                app:cornerRadius="12dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

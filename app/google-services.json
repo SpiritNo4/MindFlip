@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "554548589721",
+    "project_id": "mindflip-1bd59",
+    "storage_bucket": "mindflip-1bd59.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554548589721:android:cea8862fbfbf9019d1f408",
+        "android_client_info": {
+          "package_name": "com.example.mindflip"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_UIP0UUYomU24MGNHHvwN94fEXpS2emg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

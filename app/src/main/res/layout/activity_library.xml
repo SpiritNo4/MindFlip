@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mindflip_background">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/libraryScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="22dp"
+            android:paddingTop="35dp"
+            android:paddingEnd="22dp"
+            android:paddingBottom="30dp">
+
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/my_library"
+                    android:textColor="@color/mindflip_text_primary"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFilter"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:text="@string/filter"
+                    android:textAllCaps="false"
+                    android:textColor="@color/mindflip_text_primary"
+                    app:cornerRadius="10dp"
+                    app:icon="@android:drawable/ic_menu_sort_by_size"
+                    app:iconTint="@color/mindflip_text_primary"
+                    app:strokeColor="@color/mindflip_border" />
+
+            </LinearLayout>
+
+            <!-- EDP101 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLibraryEDP101"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
+                app:cardBackgroundColor="@color/mindflip_white"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="10dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/edp101_bullet"
+                            android:textColor="@color/mindflip_green"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp"
+                            android:text="@string/entrepreneurship_question"
+                            android:textColor="@color/mindflip_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/btnEditEDP101"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/edit_flashcard"
+                        android:padding="10dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        app:tint="@color/mindflip_text_secondary" />
+
+                    <ImageButton
+                        android:id="@+id/btnDeleteEDP101"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/delete_flashcard"
+                        android:padding="10dp"
+                        android:src="@android:drawable/ic_menu_delete"
+                        app:tint="@color/mindflip_red" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- CTE308 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLibraryCTE308"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="14dp"
+                app:cardBackgroundColor="@color/mindflip_white"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="10dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cte308_bullet"
+                            android:textColor="@color/mindflip_primary"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp"
+                            android:text="@string/ai_question"
+                            android:textColor="@color/mindflip_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/btnEditCTE308"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/edit_flashcard"
+                        android:padding="10dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        app:tint="@color/mindflip_text_secondary" />
+
+                    <ImageButton
+                        android:id="@+id/btnDeleteCTE308"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/delete_flashcard"
+                        android:padding="10dp"
+                        android:src="@android:drawable/ic_menu_delete"
+                        app:tint="@color/mindflip_red" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ITM301 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLibraryITM301"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="14dp"
+                app:cardBackgroundColor="@color/mindflip_white"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="10dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/itm301_bullet"
+                            android:textColor="@color/mindflip_yellow"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp"
+                            android:text="@string/ethical_ai_question"
+                            android:textColor="@color/mindflip_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/btnEditITM301"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/edit_flashcard"
+                        android:padding="10dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        app:tint="@color/mindflip_text_secondary" />
+
+                    <ImageButton
+                        android:id="@+id/btnDeleteITM301"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/delete_flashcard"
+                        android:padding="10dp"
+                        android:src="@android:drawable/ic_menu_delete"
+                        app:tint="@color/mindflip_red" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ITM302 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLibraryITM302"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="14dp"
+                app:cardBackgroundColor="@color/mindflip_white"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="10dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/itm302_bullet"
+                            android:textColor="@color/mindflip_pink"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp"
+                            android:text="@string/sticky_bit_question"
+                            android:textColor="@color/mindflip_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/btnEditITM302"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/edit_flashcard"
+                        android:padding="10dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        app:tint="@color/mindflip_text_secondary" />
+
+                    <ImageButton
+                        android:id="@+id/btnDeleteITM302"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/delete_flashcard"
+                        android:padding="10dp"
+                        android:src="@android:drawable/ic_menu_delete"
+                        app:tint="@color/mindflip_red" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:background="@color/mindflip_white"
+        android:elevation="10dp"
+        app:itemIconTint="@color/mindflip_primary"
+        app:itemTextColor="@color/mindflip_primary"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

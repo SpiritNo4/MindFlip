@@ -1,3 +1,76 @@
 <resources>
     <string name="app_name">MindFlip</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_library">Library</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_progress">Progress</string>
+
+    <!-- Library -->
+    <string name="my_library">My Library</string>
+    <string name="filter">Filter</string>
+    <string name="edp101_bullet">EDP101 •</string>
+    <string name="entrepreneurship_question">What is entrepreneurship?</string>
+    <string name="edit_flashcard">Edit flashcard</string>
+    <string name="delete_flashcard">Delete flashcard</string>
+    <string name="cte308_bullet">CTE308 •</string>
+    <string name="ai_question">What is Artificial Intelligence (AI)?</string>
+    <string name="itm301_bullet">ITM301 •</string>
+    <string name="ethical_ai_question">Ethical use of AI?</string>
+    <string name="itm302_bullet">ITM302 •</string>
+    <string name="sticky_bit_question">What is the use of sticky bit?</string>
+
+    <!-- Home -->
+    <string name="welcome_mindflip">Welcome to MindFlip</string>
+    <string name="study_key">• Study is the key to Success 🔥</string>
+    <string name="mindflip_logo">MindFlip logo</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="new_card">New Card</string>
+    <string name="practice_quiz">Practice Quiz</string>
+    <string name="my_progress">My Progress</string>
+    <string name="your_subjects">Your Subjects</string>
+    <string name="icon_star">✣</string>
+    <string name="cards_32">32 cards</string>
+    <string name="cte308">CTE308</string>
+    <string name="mastered_80">80% Mastered</string>
+    <string name="icon_rect">▯</string>
+    <string name="cards_48">48 cards</string>
+    <string name="edp101">EDP101</string>
+    <string name="mastered_60">60% Mastered</string>
+    <string name="icon_home">⌂</string>
+    <string name="cards_24">24 cards</string>
+    <string name="itm301">ITM301</string>
+    <string name="mastered_40">40% Mastered</string>
+    <string name="icon_list">▤</string>
+    <string name="cards_40">40 cards</string>
+    <string name="itm302">ITM302</string>
+    <string name="mastered_95">95% Mastered</string>
+
+    <!-- New Flashcard -->
+    <string name="go_back">Go back</string>
+    <string name="new_flashcard">New Flashcard</string>
+    <string name="select_subject">Select Subject</string>
+    <string name="choose_subject">Choose a subject</string>
+    <string name="topic">Topic</string>
+    <string name="entrepreneurship_hint">Entrepreneurship</string>
+    <string name="question_front">Question (Front)</string>
+    <string name="answer_back">Answer (Back)</string>
+    <string name="answer_hint">Enter the answer shown on the back of the card</string>
+    <string name="save_flashcard">Save Flashcard</string>
+
+    <!-- Auth & General -->
+    <string name="mindflip">MindFlip</string>
+    <string name="email_address">Email Address</string>
+    <string name="email_hint">alex@student.edu</string>
+    <string name="password">Password</string>
+    <string name="password_hint">Enter your password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up</string>
+    <string name="new_to_mindflip">New to MindFlip? </string>
+    <string name="already_have_account">Already have an account? </string>
+    <string name="log_in">Log in</string>
+    <string name="full_name">Full Name</string>
+    <string name="full_name_hint">Alex Carter</string>
+    <string name="forgot_password">Forgot Password?</string>
 </resources>
