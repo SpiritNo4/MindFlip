@@ -13,36 +13,43 @@ object BottomNavigationHelper {
 
         navigation.selectedItemId = selectedItemId
 
-        navigation.setOnItemSelectedListener { item ->
-            val destination = when (item.itemId) {
+        fun navigate(itemId: Int): Boolean {
+            val destination = when (itemId) {
                 R.id.nav_home -> HomeActivity::class.java
                 R.id.nav_library -> LibraryActivity::class.java
                 R.id.nav_progress -> ProgressActivity::class.java
                 R.id.nav_search -> SearchActivity::class.java
-                else -> null
+                else -> return false
             }
 
-            if (destination == null) {
-                false
-            } else if (item.itemId == selectedItemId) {
-                true
-            } else {
-                val intent = Intent(activity, destination).apply {
-                    addFlags(
-                        Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                                Intent.FLAG_ACTIVITY_SINGLE_TOP
-                    )
-                }
-
-                activity.startActivity(intent)
-
-                // Keep Home as the return screen for the other tabs.
-                if (activity !is HomeActivity) {
-                    activity.finish()
-                }
-
-                true
+            // Stay here only if the destination Activity is already open.
+            if (activity.javaClass == destination) {
+                return true
             }
+
+            val intent = Intent(activity, destination).apply {
+                addFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP
+                )
+            }
+
+            activity.startActivity(intent)
+
+            if (activity !is HomeActivity) {
+                activity.finish()
+            }
+
+            return true
+        }
+
+        navigation.setOnItemSelectedListener { item ->
+            navigate(item.itemId)
+        }
+
+        // Also handle taps on the currently highlighted tab.
+        navigation.setOnItemReselectedListener { item ->
+            navigate(item.itemId)
         }
     }
 }

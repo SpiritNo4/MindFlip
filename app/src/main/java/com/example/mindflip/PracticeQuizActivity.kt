@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 class PracticeQuizActivity : AppCompatActivity() {
 
@@ -13,11 +16,23 @@ class PracticeQuizActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_practice_quiz)
 
+        applyScreenInsets()
+
         BottomNavigationHelper.setup(this, R.id.nav_home)
 
         findViewById<View>(R.id.btnBack).setOnClickListener {
-            finish()
+            returnHome()
         }
+
+        // Also handle the device Back button or back gesture.
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    returnHome()
+                }
+            }
+        )
 
         val subjects = mapOf(
             R.id.cardQuizEDP101 to "EDP101",
@@ -43,6 +58,50 @@ class PracticeQuizActivity : AppCompatActivity() {
                 intent.putExtra("subject", subject)
                 startActivity(intent)
             }
+        }
+    }
+
+    private fun returnHome() {
+        if (isFinishing) return
+
+        val intent = Intent(this, HomeActivity::class.java).apply {
+            addFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP
+            )
+        }
+
+        startActivity(intent)
+        finish()
+    }
+
+    private fun applyScreenInsets() {
+        val content = findViewById<ViewGroup>(android.R.id.content)
+        val root = content.getChildAt(0)
+
+        val originalLeft = root.paddingLeft
+        val originalTop = root.paddingTop
+        val originalRight = root.paddingRight
+        val originalBottom = root.paddingBottom
+
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            val safeArea = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or
+                        WindowInsetsCompat.Type.displayCutout()
+            )
+
+            view.setPadding(
+                originalLeft + safeArea.left,
+                originalTop + safeArea.top,
+                originalRight + safeArea.right,
+                originalBottom + safeArea.bottom
+            )
+
+            WindowInsetsCompat.CONSUMED
+        }
+
+        root.post {
+            ViewCompat.requestApplyInsets(root)
         }
     }
 
