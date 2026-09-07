@@ -63,7 +63,7 @@ class NewFlashcardActivity : AppCompatActivity() {
             finish()
         }
 
-        BottomNavigationHelper.setup(this, R.id.nav_manage)
+        BottomNavigationHelper.setup(this, R.id.nav_library)
 
         saveButton.setOnClickListener {
             saveFlashcard()

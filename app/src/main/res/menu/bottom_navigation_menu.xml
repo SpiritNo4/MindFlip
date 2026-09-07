@@ -9,14 +9,14 @@
             android:title="Home" />
 
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_library"
             android:icon="@android:drawable/ic_menu_agenda"
-            android:title="Manage" />
+            android:title="@string/nav_library" />
 
         <item
-            android:id="@+id/nav_stats"
+            android:id="@+id/nav_progress"
             android:icon="@android:drawable/ic_menu_sort_by_size"
-            android:title="Stats" />
+            android:title="@string/nav_progress" />
 
         <item
             android:id="@+id/nav_search"

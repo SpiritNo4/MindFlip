@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -66,6 +65,20 @@
                     android:src="@mipmap/ic_launcher" />
 
             </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLogout"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="12dp"
+                android:minHeight="48dp"
+                android:text="Log Out"
+                android:textAllCaps="false"
+                android:textColor="@color/mindflip_primary"
+                app:cornerRadius="12dp"
+                app:strokeColor="@color/mindflip_border" />
 
             <!-- Quick actions title -->
             <TextView
@@ -219,7 +232,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardCTE308"
                     android:layout_width="0dp"
-                    android:layout_height="145dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="7dp"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/mindflip_white"
@@ -228,7 +241,8 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="145dp"
                         android:orientation="vertical"
                         android:padding="15dp">
 
@@ -243,10 +257,11 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/textHomeCountCTE308"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="@string/cards_32"
+                            android:text="Loading…"
                             android:textAlignment="textEnd"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
@@ -260,20 +275,21 @@
                             android:textStyle="bold" />
 
                         <ProgressBar
+                            android:id="@+id/progressHomeCTE308"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="match_parent"
                             android:layout_height="6dp"
                             android:layout_marginTop="7dp"
                             android:max="100"
-                            android:progress="80"
+                            android:progress="0"
                             android:progressBackgroundTint="@color/mindflip_border"
                             android:progressTint="@color/mindflip_primary" />
 
                         <TextView
+                            android:id="@+id/textHomeMasteryCTE308"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="@string/mastered_80"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
 
@@ -285,7 +301,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardEDP101"
                     android:layout_width="0dp"
-                    android:layout_height="145dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/mindflip_white"
@@ -294,7 +310,8 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="145dp"
                         android:orientation="vertical"
                         android:padding="15dp">
 
@@ -309,10 +326,11 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/textHomeCountEDP101"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="@string/cards_48"
+                            android:text="Loading…"
                             android:textAlignment="textEnd"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
@@ -326,20 +344,21 @@
                             android:textStyle="bold" />
 
                         <ProgressBar
+                            android:id="@+id/progressHomeEDP101"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="match_parent"
                             android:layout_height="6dp"
                             android:layout_marginTop="7dp"
                             android:max="100"
-                            android:progress="60"
+                            android:progress="0"
                             android:progressBackgroundTint="@color/mindflip_border"
                             android:progressTint="@color/mindflip_green" />
 
                         <TextView
+                            android:id="@+id/textHomeMasteryEDP101"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="@string/mastered_60"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
 
@@ -360,7 +379,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardITM301"
                     android:layout_width="0dp"
-                    android:layout_height="145dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="7dp"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/mindflip_white"
@@ -369,7 +388,8 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="145dp"
                         android:orientation="vertical"
                         android:padding="15dp">
 
@@ -384,10 +404,11 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/textHomeCountITM301"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="@string/cards_24"
+                            android:text="Loading…"
                             android:textAlignment="textEnd"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
@@ -401,20 +422,21 @@
                             android:textStyle="bold" />
 
                         <ProgressBar
+                            android:id="@+id/progressHomeITM301"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="match_parent"
                             android:layout_height="6dp"
                             android:layout_marginTop="7dp"
                             android:max="100"
-                            android:progress="40"
+                            android:progress="0"
                             android:progressBackgroundTint="@color/mindflip_border"
                             android:progressTint="@color/mindflip_yellow" />
 
                         <TextView
+                            android:id="@+id/textHomeMasteryITM301"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="@string/mastered_40"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
 
@@ -426,7 +448,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardITM302"
                     android:layout_width="0dp"
-                    android:layout_height="145dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/mindflip_white"
@@ -435,7 +457,8 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="145dp"
                         android:orientation="vertical"
                         android:padding="15dp">
 
@@ -450,10 +473,11 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/textHomeCountITM302"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="@string/cards_40"
+                            android:text="Loading…"
                             android:textAlignment="textEnd"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
@@ -467,20 +491,21 @@
                             android:textStyle="bold" />
 
                         <ProgressBar
+                            android:id="@+id/progressHomeITM302"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="match_parent"
                             android:layout_height="6dp"
                             android:layout_marginTop="7dp"
                             android:max="100"
-                            android:progress="95"
+                            android:progress="0"
                             android:progressBackgroundTint="@color/mindflip_border"
                             android:progressTint="@color/mindflip_pink" />
 
                         <TextView
+                            android:id="@+id/textHomeMasteryITM302"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="@string/mastered_95"
                             android:textColor="@color/mindflip_text_secondary"
                             android:textSize="11sp" />
 
