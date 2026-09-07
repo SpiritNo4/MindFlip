@@ -40,6 +40,38 @@ class NewFlashcardActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_new_flashcard)
+        // Keep controls clear of the status bar and navigation bar.
+        val root = findViewById<android.view.ViewGroup>(
+            android.R.id.content
+        ).getChildAt(0)
+
+        val originalLeft = root.paddingLeft
+        val originalTop = root.paddingTop
+        val originalRight = root.paddingRight
+        val originalBottom = root.paddingBottom
+
+        androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(
+            root
+        ) { view, insets ->
+
+            val safeArea = insets.getInsets(
+                androidx.core.view.WindowInsetsCompat.Type.systemBars() or
+                        androidx.core.view.WindowInsetsCompat.Type.displayCutout()
+            )
+
+            view.setPadding(
+                originalLeft + safeArea.left,
+                originalTop + safeArea.top,
+                originalRight + safeArea.right,
+                originalBottom + safeArea.bottom
+            )
+
+            androidx.core.view.WindowInsetsCompat.CONSUMED
+        }
+
+        root.post {
+            androidx.core.view.ViewCompat.requestApplyInsets(root)
+        }
 
         subjectInput = findViewById(R.id.dropdownSubject)
         topicInput = findViewById(R.id.editTopic)
@@ -59,12 +91,47 @@ class NewFlashcardActivity : AppCompatActivity() {
             subjectInput.setText("", false)
         }
 
+        val returnToLibrary: () -> Unit = {
+            if (!isFinishing) {
+                val next = Intent(
+                    this,
+                    LibraryActivity::class.java
+                ).apply {
+                    addFlags(
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                                Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    )
+                }
+
+                startActivity(next)
+                finish()
+            }
+        }
+
         findViewById<View>(R.id.btnBack).setOnClickListener {
-            finish()
+            returnToLibrary()
         }
 
         BottomNavigationHelper.setup(this, R.id.nav_library)
 
+        findViewById<
+                com.google.android.material.bottomnavigation.BottomNavigationView
+                >(
+            R.id.bottomNavigationView
+        ).setOnItemReselectedListener { item ->
+            if (item.itemId == R.id.nav_library) {
+                returnToLibrary()
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : androidx.activity.OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    returnToLibrary()
+                }
+            }
+        )
         saveButton.setOnClickListener {
             saveFlashcard()
         }
