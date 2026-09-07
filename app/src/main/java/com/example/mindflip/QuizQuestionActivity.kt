@@ -22,6 +22,9 @@ class QuizQuestionActivity : AppCompatActivity() {
     private lateinit var feedbackCard: MaterialCardView
 
     private var subject = ""
+    private var sessionId = ""
+    private var responses = IntArray(0)
+    private var openingResult = false
     private var questions: List<QuizQuestion> = emptyList()
 
     private var index = 0
@@ -32,9 +35,42 @@ class QuizQuestionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_question)
+        // Keep the header and Back button below the status bar.
+        val screenRoot = findViewById<android.view.ViewGroup>(
+            android.R.id.content
+        ).getChildAt(0)
+
+        val originalLeft = screenRoot.paddingLeft
+        val originalTop = screenRoot.paddingTop
+        val originalRight = screenRoot.paddingRight
+        val originalBottom = screenRoot.paddingBottom
+
+        androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(
+            screenRoot
+        ) { view, insets ->
+
+            val safeArea = insets.getInsets(
+                androidx.core.view.WindowInsetsCompat.Type.systemBars() or
+                        androidx.core.view.WindowInsetsCompat.Type.displayCutout()
+            )
+
+            view.setPadding(
+                originalLeft + safeArea.left,
+                originalTop + safeArea.top,
+                originalRight + safeArea.right,
+                originalBottom + safeArea.bottom
+            )
+
+            androidx.core.view.WindowInsetsCompat.CONSUMED
+        }
+
+        screenRoot.post {
+            androidx.core.view.ViewCompat.requestApplyInsets(screenRoot)
+        }
 
         subject = intent.getStringExtra("subject").orEmpty()
-        questions = QuizData.questions(subject)
+        sessionId = intent.getStringExtra("sessionId").orEmpty()
+        questions = QuizData.readSession(this, sessionId)
 
         if (questions.isEmpty()) {
             Toast.makeText(
@@ -51,6 +87,10 @@ class QuizQuestionActivity : AppCompatActivity() {
         checked = savedInstanceState?.getBoolean("checked") ?: false
         selectedOption =
             savedInstanceState?.getInt("selectedOption", -1) ?: -1
+
+        responses = savedInstanceState?.getIntArray("responses")
+            ?.takeIf { it.size == questions.size } ?: IntArray(questions.size) { -1 }
+        index = index.coerceIn(0, questions.lastIndex)
 
         answersGroup = findViewById(R.id.radioGroupAnswers)
 
@@ -100,6 +140,7 @@ class QuizQuestionActivity : AppCompatActivity() {
             }
         }
 
+        outState.putIntArray("responses", responses)
         outState.putInt("index", index)
         outState.putInt("score", score)
         outState.putBoolean("checked", checked)
@@ -129,9 +170,9 @@ class QuizQuestionActivity : AppCompatActivity() {
         val letters = listOf("A", "B", "C", "D")
 
         options.forEachIndexed { position, button ->
-            button.text =
-                "${letters[position]}. ${question.options[position]}"
-            button.isEnabled = !checked
+            button.visibility = if (position < question.options.size) View.VISIBLE else View.GONE
+            button.text = question.options.getOrNull(position)?.let { "${letters[position]}. $it" }.orEmpty()
+            button.isEnabled = !checked && position < question.options.size
         }
 
         if (selectedOption in options.indices) {
@@ -164,6 +205,7 @@ class QuizQuestionActivity : AppCompatActivity() {
         }
 
         checked = true
+        responses[index] = selectedOption
 
         if (selectedOption == questions[index].correctIndex) {
             score++
@@ -218,11 +260,16 @@ class QuizQuestionActivity : AppCompatActivity() {
     }
 
     private fun openResult() {
+        if (openingResult) return
+        openingResult = true
         val intent = Intent(
             this,
             QuizResultActivity::class.java
         )
 
+        intent.putExtra("sessionId", sessionId)
+        intent.putExtra("responses", responses)
+        intent.putExtra("resultId", sessionId)
         intent.putExtra("subject", subject)
         intent.putExtra("score", score)
         intent.putExtra("total", questions.size)

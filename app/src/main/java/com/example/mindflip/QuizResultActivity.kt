@@ -3,6 +3,8 @@ package com.example.mindflip
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.LinearLayout
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
@@ -85,7 +87,7 @@ class QuizResultActivity : AppCompatActivity() {
         findViewById<MaterialButton>(
             R.id.btnRetryQuiz
         ).setOnClickListener {
-            val next = Intent(this, QuizQuestionActivity::class.java)
+            val next = Intent(this, QuizInfoActivity::class.java)
             next.putExtra("subject", subject)
             startActivity(next)
             finish()
@@ -102,6 +104,8 @@ class QuizResultActivity : AppCompatActivity() {
         ).setOnClickListener {
             openScreen(HomeActivity::class.java)
         }
+
+        showAnswerReview()
 
         if (total > 0 && !saved) {
             saveResult(subject, score, total)
@@ -170,6 +174,38 @@ class QuizResultActivity : AppCompatActivity() {
                     }.show()
                 }
             }
+    }
+
+    private fun showAnswerReview() {
+        val sessionId = intent.getStringExtra("sessionId").orEmpty()
+        val questions = QuizData.readSession(this, sessionId)
+        val responses = intent.getIntArrayExtra("responses") ?: return
+        if (questions.isEmpty() || responses.size != questions.size) return
+        val container = findViewById<LinearLayout>(R.id.quizReviewContainer)
+        questions.forEachIndexed { index, question ->
+            val selected = responses[index]
+            if (selected != question.correctIndex) {
+                container.addView(TextView(this).apply {
+                    text = "Question ${index + 1}: ${question.question}\n\n" +
+                        "Your answer: ${question.options.getOrNull(selected) ?: "Not answered"}\n\n" +
+                        "Correct answer: ${question.options[question.correctIndex]}"
+                    textSize = 16f
+                    setTextColor(androidx.core.content.ContextCompat.getColor(
+                        this@QuizResultActivity, R.color.mindflip_text_primary))
+                    val spacing = (16 * resources.displayMetrics.density).toInt()
+                    setPadding(0, spacing, 0, spacing)
+                    layoutParams = LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                })
+            }
+        }
+        if (container.childCount == 0) {
+            container.addView(TextView(this).apply {
+                text = "No missed questions. Well done!"
+                setTextColor(androidx.core.content.ContextCompat.getColor(
+                    this@QuizResultActivity, R.color.mindflip_text_primary))
+            })
+        }
     }
 
     private fun openScreen(destination: Class<*>) {

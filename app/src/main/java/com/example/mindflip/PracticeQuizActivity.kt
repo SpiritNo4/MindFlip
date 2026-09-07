@@ -44,10 +44,7 @@ class PracticeQuizActivity : AppCompatActivity() {
         subjects.forEach { (id, subject) ->
             val card = findViewById<View>(id)
 
-            updateQuestionCount(
-                card,
-                QuizData.questions(subject).size
-            )
+            updateQuestionCount(card)
 
             card.setOnClickListener {
                 val intent = Intent(
@@ -105,19 +102,18 @@ class PracticeQuizActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateQuestionCount(view: View, count: Int) {
+    private fun updateQuestionCount(view: View) {
         if (
             view is TextView &&
             view.text.toString().contains("Multiple choice")
         ) {
-            view.text = "$count questions • Multiple choice"
+            view.text = "Your flashcards • Multiple choice"
         }
 
         if (view is ViewGroup) {
             for (index in 0 until view.childCount) {
                 updateQuestionCount(
-                    view.getChildAt(index),
-                    count
+                    view.getChildAt(index)
                 )
             }
         }

@@ -1,5 +1,14 @@
 package com.example.mindflip
 
+import android.content.Context
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.File
+import java.util.Locale
+import java.util.UUID
+
 data class QuizQuestion(
     val question: String,
     val options: List<String>,
@@ -7,119 +16,87 @@ data class QuizQuestion(
     val explanation: String
 )
 
+data class QuizCard(val question: String, val answer: String)
+
 object QuizData {
+    const val MAX_QUESTIONS = 20
+    private fun key(value: String) = value.trim().lowercase(Locale.ROOT)
+        .replace(Regex("\\s+"), " ")
 
-    fun questions(subject: String): List<QuizQuestion> {
-        return when (subject) {
-            "EDP101" -> listOf(
-                QuizQuestion(
-                    "Which statement best describes entrepreneurship?",
-                    listOf(
-                        "Pursuing an opportunity by creating and managing a venture",
-                        "Avoiding every possible business risk",
-                        "Ignoring customer needs",
-                        "Guaranteeing a profit"
-                    ),
-                    0,
-                    "Entrepreneurship involves pursuing opportunities, " +
-                            "creating value, and managing uncertainty."
-                ),
-                QuizQuestion(
-                    "Why should a new business research its customers?",
-                    listOf(
-                        "To eliminate every competitor",
-                        "To guarantee immediate profit",
-                        "To understand customer needs",
-                        "To avoid testing its product"
-                    ),
-                    2,
-                    "Customer research helps a business understand needs " +
-                            "and make better product decisions."
-                )
-            )
-
-            "CTE308" -> listOf(
-                QuizQuestion(
-                    "What does supervised learning use during training?",
-                    listOf(
-                        "Only random numbers",
-                        "Examples paired with target labels or values",
-                        "No training data",
-                        "Only unlabelled examples"
-                    ),
-                    1,
-                    "Supervised learning learns from inputs paired " +
-                            "with known target outputs."
-                ),
-                QuizQuestion(
-                    "Which task is an example of classification?",
-                    listOf(
-                        "Predicting tomorrow's temperature",
-                        "Estimating a house price",
-                        "Predicting a person's height",
-                        "Labelling an email as spam or not spam"
-                    ),
-                    3,
-                    "Classification assigns an input to a category, " +
-                            "such as spam or not spam."
-                )
-            )
-
-            "ITM301" -> listOf(
-                QuizQuestion(
-                    "Which action better protects personal information?",
-                    listOf(
-                        "Publishing private records",
-                        "Sharing passwords with everyone",
-                        "Restricting access to authorised people",
-                        "Collecting unnecessary sensitive data"
-                    ),
-                    2,
-                    "Restricting access helps protect personal " +
-                            "information from unauthorised use."
-                ),
-                QuizQuestion(
-                    "Why should an AI system be checked for unfair bias?",
-                    listOf(
-                        "It may treat groups unfairly",
-                        "AI systems can never make mistakes",
-                        "Bias always improves accuracy",
-                        "Testing removes the need for human judgment"
-                    ),
-                    0,
-                    "Bias can lead to unfair outcomes, so systems " +
-                            "should be evaluated across relevant groups."
-                )
-            )
-
-            "ITM302" -> listOf(
-                QuizQuestion(
-                    "What is the purpose of file permissions?",
-                    listOf(
-                        "To increase screen brightness",
-                        "To control access to files",
-                        "To change the computer's clock",
-                        "To guarantee internet access"
-                    ),
-                    1,
-                    "File permissions control which users can " +
-                            "perform actions such as reading or writing."
-                ),
-                QuizQuestion(
-                    "What does the principle of least privilege mean?",
-                    listOf(
-                        "Give every user administrator access",
-                        "Remove all passwords",
-                        "Make all files public",
-                        "Grant only the access needed for a task"
-                    ),
-                    3,
-                    "Least privilege limits access to what a user " +
-                            "or process needs to do its work."
-                )
-            )
-
-            else -> emptyList()
-        }
+    // All choices come from this user's cards in the selected subject.
+    // Other answers to the SAME question must never become distractors.
+    fun buildQuestions(cards: List<QuizCard>): List<QuizQuestion> {
+        val valid = cards.filter { it.question.isNotBlank() && it.answer.isNotBlank() }
+        val answerPool = valid.map { it.answer.trim() }.distinctBy { key(it) }
+        return valid.distinctBy { key(it.question) }.mapNotNull { card ->
+            val accepted = valid.filter { key(it.question) == key(card.question) }
+                .map { key(it.answer) }.toSet()
+            val distractors = answerPool.filter { key(it) !in accepted }.shuffled().take(3)
+            if (distractors.isEmpty()) return@mapNotNull null
+            val answer = card.answer.trim()
+            val choices = (distractors + answer).shuffled()
+            QuizQuestion(card.question.trim(), choices, choices.indexOf(answer),
+                "From your saved flashcard. Review any equivalent answers with your notes.")
+        }.shuffled().take(MAX_QUESTIONS)
     }
+
+    fun load(subject: String, callback: (List<QuizQuestion>?, String?) -> Unit) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        if (uid == null) {
+            callback(null, "Please sign in to use your flashcards.")
+            return
+        }
+        FirebaseFirestore.getInstance().collection("users").document(uid)
+            .collection("flashcards").whereEqualTo("subject", subject).get()
+            .addOnSuccessListener { snapshot ->
+                if (FirebaseAuth.getInstance().currentUser?.uid != uid) {
+                    callback(null, "Your account changed. Please reopen the quiz.")
+                    return@addOnSuccessListener
+                }
+                val cards = snapshot.documents.map { doc ->
+                    QuizCard(doc.getString("question").orEmpty(), doc.getString("answer").orEmpty())
+                }
+                val questions = buildQuestions(cards)
+                val message = if (questions.isEmpty()) {
+                    "Add at least two different questions with different answers in $subject, then try again. " +
+                        if (snapshot.metadata.isFromCache) "Only downloaded cards are available offline." else ""
+                } else null
+                callback(questions, message)
+            }
+            .addOnFailureListener {
+                callback(null, "Could not load flashcards. Check your connection and try again.")
+            }
+    }
+
+    // Store the exact shuffled session privately on-device; only the ID crosses activities.
+    // This avoids large Intent/Bundle payloads and preserves order after recreation.
+    private fun sessionFile(context: Context, id: String): File {
+        require(id.matches(Regex("[a-f0-9-]{36}")))
+        val uid = requireNotNull(FirebaseAuth.getInstance().currentUser?.uid)
+        val userFolder = uid.toByteArray().joinToString("") { "%02x".format(it) }
+        val directory = File(context.noBackupFilesDir, "quiz_sessions/$userFolder")
+        check(directory.exists() || directory.mkdirs())
+        return File(directory, "$id.json")
+    }
+
+    fun saveSession(context: Context, subject: String, questions: List<QuizQuestion>): String {
+        val id = UUID.randomUUID().toString()
+        val rows = JSONArray()
+        questions.forEach { q -> rows.put(JSONObject().put("question", q.question)
+            .put("options", JSONArray(q.options)).put("correctIndex", q.correctIndex)
+            .put("explanation", q.explanation)) }
+        val json = JSONObject().put("subject", subject).put("questions", rows)
+        sessionFile(context, id).writeText(json.toString())
+        return id
+    }
+
+    fun readSession(context: Context, id: String): List<QuizQuestion> = runCatching {
+        val rows = JSONObject(sessionFile(context, id).readText()).getJSONArray("questions")
+        (0 until rows.length()).map { index ->
+            val q = rows.getJSONObject(index)
+            val options = q.getJSONArray("options")
+            QuizQuestion(q.getString("question"), (0 until options.length()).map { options.getString(it) },
+                q.getInt("correctIndex"), q.getString("explanation"))
+        }
+    }.getOrDefault(emptyList())
 }

@@ -3,10 +3,14 @@ package com.example.mindflip
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -38,6 +42,17 @@ class FlashcardStudyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flashcard_study)
 
+        applyScreenInsets()
+
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    leaveStudy()
+                }
+            }
+        )
+
         subject = intent.getStringExtra("subject").orEmpty()
 
         reviewedIds.addAll(
@@ -66,7 +81,7 @@ class FlashcardStudyActivity : AppCompatActivity() {
         ).text = subject.ifBlank { "Flashcards" }
 
         findViewById<View>(R.id.btnBack).setOnClickListener {
-            finish()
+            leaveStudy()
         }
 
         findViewById<View>(R.id.cardFlashcard).setOnClickListener {
@@ -93,18 +108,71 @@ class FlashcardStudyActivity : AppCompatActivity() {
             "reviewedIds",
             ArrayList(reviewedIds)
         )
+
         outState.putStringArrayList(
             "masteredIds",
             ArrayList(masteredIds)
         )
+
         super.onSaveInstanceState(outState)
+    }
+
+    private fun leaveStudy() {
+        if (isFinishing) return
+
+        // If there is no previous screen, open Home.
+        if (isTaskRoot) {
+            val next = Intent(
+                this,
+                HomeActivity::class.java
+            ).apply {
+                addFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP
+                )
+            }
+
+            startActivity(next)
+        }
+
+        finish()
+    }
+
+    private fun applyScreenInsets() {
+        val content = findViewById<ViewGroup>(android.R.id.content)
+        val root = content.getChildAt(0)
+
+        val originalLeft = root.paddingLeft
+        val originalTop = root.paddingTop
+        val originalRight = root.paddingRight
+        val originalBottom = root.paddingBottom
+
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            val safeArea = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or
+                        WindowInsetsCompat.Type.displayCutout()
+            )
+
+            view.setPadding(
+                originalLeft + safeArea.left,
+                originalTop + safeArea.top,
+                originalRight + safeArea.right,
+                originalBottom + safeArea.bottom
+            )
+
+            WindowInsetsCompat.CONSUMED
+        }
+
+        root.post {
+            ViewCompat.requestApplyInsets(root)
+        }
     }
 
     private fun loadCards() {
         val user = FirebaseAuth.getInstance().currentUser
 
         if (user == null) {
-            val intent = Intent(
+            val next = Intent(
                 this,
                 LoginActivity::class.java
             ).apply {
@@ -112,7 +180,7 @@ class FlashcardStudyActivity : AppCompatActivity() {
                         Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
 
-            startActivity(intent)
+            startActivity(next)
             finish()
             return
         }
@@ -148,10 +216,14 @@ class FlashcardStudyActivity : AppCompatActivity() {
                     if (reviewedIds.isNotEmpty()) {
                         openSummary()
                     } else {
-                        contentText.text = "No flashcards for this subject yet."
+                        contentText.text =
+                            "No flashcards for this subject yet."
+
                         hintText.text =
                             "Go back and create a card for $subject."
+
                         countText.text = "0 cards"
+
                         updateButtons()
                     }
                 } else {
@@ -166,6 +238,7 @@ class FlashcardStudyActivity : AppCompatActivity() {
                 busy = false
                 contentText.text = "Could not load flashcards."
                 hintText.text = "Go back and try again."
+
                 updateButtons()
 
                 showMessage(
@@ -205,6 +278,7 @@ class FlashcardStudyActivity : AppCompatActivity() {
 
         if (showingAnswer) {
             answerViewed = true
+
             sideText.text = "ANSWER"
             contentText.text = card.getString("answer").orEmpty()
             hintText.text = "How well did you remember?"
@@ -226,6 +300,7 @@ class FlashcardStudyActivity : AppCompatActivity() {
 
         busy = true
         hintText.text = "Saving your progress…"
+
         updateButtons()
 
         card.reference.update("mastered", mastered)
@@ -257,6 +332,7 @@ class FlashcardStudyActivity : AppCompatActivity() {
                 busy = false
                 hintText.text =
                     "Progress could not be saved. Tap your rating to retry."
+
                 updateButtons()
 
                 showMessage(
@@ -274,20 +350,24 @@ class FlashcardStudyActivity : AppCompatActivity() {
     }
 
     private fun openSummary() {
-        val intent = Intent(
+        val next = Intent(
             this,
             FlashcardCompleteActivity::class.java
         )
 
-        intent.putExtra("subject", subject)
-        intent.putExtra("reviewed", reviewedIds.size)
-        intent.putExtra("mastered", masteredIds.size)
+        next.putExtra("subject", subject)
+        next.putExtra("reviewed", reviewedIds.size)
+        next.putExtra("mastered", masteredIds.size)
 
-        startActivity(intent)
+        startActivity(next)
         finish()
     }
 
     private fun showMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            this,
+            message,
+            Toast.LENGTH_LONG
+        ).show()
     }
 }
